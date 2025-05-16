@@ -1,4 +1,4 @@
-# project_career
+# career_buddy
 
 A new Flutter project.
 
