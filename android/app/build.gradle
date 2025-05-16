@@ -1,0 +1,54 @@
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android'  // Only keep this
+    id 'dev.flutter.flutter-gradle-plugin'
+    id 'com.google.gms.google-services'
+}
+
+android {
+    namespace = "com.example.project_career"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"  // Explicitly set as string
+    }
+
+    defaultConfig {
+        applicationId "com.example.project_career"
+        minSdk = 23
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    implementation "com.google.firebase:firebase-analytics"
+    implementation platform("com.google.firebase:firebase-bom:33.9.0")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:2.1.0"  // Ensure Kotlin version is correct
+}
+
+// Force all dependencies to use Kotlin 2.1.0
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        if (details.requested.group == "org.jetbrains.kotlin") {
+            details.useVersion "2.1.0"
+        }
+    }
+}
